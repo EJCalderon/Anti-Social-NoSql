@@ -22,7 +22,9 @@
     "inquirer": "^8.2.0",
     "jest": "^27.5.1",
     "moment": "^2.29.1",
-    "mongoose": "^6.2.4",
-    "nodemon": "^2.0.15"
+    "mongoose": "^6.2.4"
+  }, 
+    "devDependencies": {
+      "nodemon": "^2.0.15"
   }
 }

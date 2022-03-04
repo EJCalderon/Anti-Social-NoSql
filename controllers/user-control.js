@@ -20,7 +20,7 @@ const userControllers = {
     },
     getUsersById({params}, res) {
         Users.findOne({_id: params.id })
-        .populate({path: 'thoughts', select:'-__v'})
+        .populate({path: 'thought', select:'-__v'})
         .populate({path: 'friends', select: '-__v'})
         .select('-__v')
         .then(dbThoughtData => {
@@ -38,7 +38,7 @@ const userControllers = {
         updateUsers({params, body}, res) {
             Users.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
             .then(dbThoughtsData => {
-                if(!dbThoughtsData) {;
+                if(!dbThoughtsData) {
                 res.status(404).json({message: 'None'});
             return;
             }
@@ -49,7 +49,7 @@ const userControllers = {
     deleteUsers({params}, res) {
         Users.findOneAndDelete({_id: params.id})
             .then(dbThoughtData => {
-                if(!dbThoughtsData){
+                if(!dbThoughtData){
                     res.status(404).json({message: 'None'});
                     return;
                 }

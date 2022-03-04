@@ -1,12 +1,12 @@
 const res = require('express/lib/response');
-const { Thoughts, Users } = require('../models');
+const { Thoughts, Users } = require('../models/thought');
 
-const thoughtsController = {
-    getAllThoughts(req, res) {
+const thoughtController = {
+    getAllThought(req, res) {
         Thoughts.find({})
         .populare({ path: 'recreations', select: '-__v'})
         .select('-__v')
-        .then(abThoughtData => res.json(dbThoughtData))
+        .then(abThoughtData => res.json(abThoughtData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -77,5 +77,5 @@ const thoughtsController = {
             .catch(err => res.json(err));
     }
 };
-module.exports = thoughtsController;
+module.exports = thoughtController;
     
