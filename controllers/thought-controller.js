@@ -14,7 +14,7 @@ const thoughtsController = {
     },
 
     getThoughtsbyId({ params}, res) {
-        Thoughts.FindOne({ _id: params.id})
+        Thoughts.findOne({ _id: params.id})
         .populate({ path: 'reactions', select: '-__v' })
         .select('-__v')
         .then(dbThoughtData => {
@@ -32,7 +32,7 @@ const thoughtsController = {
     createThought({ body}, res) {
         Thoughts.create(body) 
         .then(dbThoughtData => {
-            User.findOneAndUpdate(
+            Users.findOneAndUpdate(
                 { _id: body.userId },
                 { $push: { thoughts: dbThoughtData._id } },
                 { new: true }
@@ -50,7 +50,7 @@ const thoughtsController = {
     },
 
     updateThought({ params, body }, res) {
-        Thought.findOneAndUpdate(
+        Thoughts.findOneAndUpdate(
             { _id: params.id },
             body,
             { new: true }
@@ -66,7 +66,7 @@ const thoughtsController = {
     },
 
     deleteThought({ params }, res) {
-        Thought.findOneAndDelete({_id: params.thoughtid }, { $pull: {reactionId: {reactionId: params.reactionId}}}, {new: true})
+        Thoughts.findOneAndDelete({_id: params.thoughtid }, { $pull: {reactionId: {reactionId: params.reactionId}}}, {new: true})
         .then(dbThoughtData => {
             if (!dbThoughtData) {
                 res.status(404).json({ message: 'none'});
