@@ -57,7 +57,7 @@ const thoughtsController = {
         )
         .then(dbThoughtData => {
             if (!dbThoughtData) {
-                res.status(404).json({ message: 'No thought found with this id' });
+                res.status(404).json({ message: 'None' });
                 return;
             }
             res.json(dbThoughtData);
@@ -66,5 +66,16 @@ const thoughtsController = {
     },
 
     deleteThought({ params }, res) {
-        Thought.findOneAndDelete
+        Thought.findOneAndDelete({_id: params.thoughtid }, { $pull: {reactionId: {reactionId: params.reactionId}}}, {new: true})
+        .then(dbThoughtData => {
+            if (!dbThoughtData) {
+                res.status(404).json({ message: 'none'});
+                return;
+            }
+            res.json(dbThoughtData);
+        })
+            .catch(err => res.json(err));
     }
+};
+module.exports = thoughtsController;
+    
