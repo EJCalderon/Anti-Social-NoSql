@@ -3,7 +3,7 @@ const { Users } = require('../models');
 
 const userControllers = {
 
-    createUseres({body}, res) {
+    createUsers({body}, res) {
         Users.create(body)
         .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => res.json(err));
@@ -42,7 +42,7 @@ const userControllers = {
                 res.status(404).json({message: 'None'});
             return;
             }
-            res.json(dbThoughtData);
+            res.json(dbThoughtsData);
         })
         .catch(err => res.json(err))
     },
